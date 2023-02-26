@@ -18,12 +18,14 @@ public class ATMachine {
     public void createAccount() { // 계좌 개설
         Scanner scan = new Scanner(System.in);
         System.out.println("----------개설----------");
-        System.out.printf("이름 입력:");
+        System.out.printf("이름 입력 : ");
         String name = scan.next();
-        System.out.printf("암호 입력:");
+        System.out.printf("암호 입력 : ");
         String pwd = scan.next();
         this.accountArray[nCurrentAccountNum] = new Account(ATMachine.BASE_ACCOUNT_ID + this.nCurrentAccountNum, 0, name, pwd);
-        System.out.printf("%s님 %d번 계좌번호가 정상적으로 개설되었습니다. 감사합니다.\n", name , this.accountArray[nCurrentAccountNum].getnID());
+        System.out.printf("%s님 %d번 계좌번호가 정상적으로 개설되었습니다. 감사합니다.", name , this.accountArray[nCurrentAccountNum].getnID());
+        System.out.println();
+        System.out.println();
         this.nCurrentAccountNum++;
 
 
@@ -31,16 +33,39 @@ public class ATMachine {
     public void checkMoney() { // 계좌 조회
         Scanner scan = new Scanner(System.in);
         System.out.println("----------조회----------");
-        System.out.printf("계좌번호 입력:");
+        System.out.printf("계좌번호 입력: ");
         int id = scan.nextInt();
-        System.out.printf("비밀번호 입력:");
+        System.out.printf("비밀번호 입력: ");
         String pwd = scan.next();
-        for (int i = 0; i < this.accountArray.length && this.accountArray[i] != null; i++) {
+        for (int i = 0; i < this.accountArray.length; i++) {
+            if (this.accountArray[i] == null) {
+                System.out.println("회원 정보가 없습니다.");
+                break;
+            }
             if (this.accountArray[i].authenticate(id, pwd)) {
                 System.out.printf("계좌 잔액 : %d\n\n", this.accountArray[i].getnBalance());
             }
         }
 
+    }
+
+    public void depositMoney() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("----------입금----------");
+        System.out.printf("계좌번호 입력: ");
+        int id = scan.nextInt();
+        System.out.printf("비밀번호 입력: ");
+        String pwd = scan.next();
+        System.out.printf("입금 액 입력: ");
+        int money = scan.nextInt();
+        for (int i = 0; i < this.accountArray.length; i++) {
+            if (this.accountArray[i] == null) {
+                break;
+            }
+            if (this.accountArray[i].authenticate(id, pwd)) {
+                System.out.printf("입금 후 잔액 : %d\n\n", this.accountArray[i].deposit(money));
+            }
+        }
     }
     public void displayMenu() { // 메인 메뉴 표시
         System.out.println("+--------------------+");
@@ -48,6 +73,7 @@ public class ATMachine {
         System.out.println("+--------------------+");
         System.out.println("1. 계좌 개설");
         System.out.println("2. 계좌 조회");
+        System.out.println("3. 계좌 입금");
         System.out.println("9. 업무 종료");
     }
 }

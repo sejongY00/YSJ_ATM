@@ -17,6 +17,11 @@ public class Account {
         }
         return false;
     }
+
+    int deposit(int money) {
+        return this.nBalance += money;
+    }
+
     public int getnID() {
         return nID;
     }
