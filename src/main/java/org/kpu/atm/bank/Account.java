@@ -1,5 +1,6 @@
 package org.kpu.atm.bank;
 
+
 public class Account {
     private int nID; // 계좌 번호
     private int nBalance; // 계좌 잔고
@@ -18,8 +19,16 @@ public class Account {
         return false;
     }
 
-    int deposit(int money) {
+    public int deposit(int money) {
         return this.nBalance += money;
+    }
+
+    public int widraw(int money) {
+        return this.nBalance -= money;
+    }
+
+    public String getAccountName() {
+        return strAccountName;
     }
 
     public int getnID() {
@@ -28,4 +37,5 @@ public class Account {
     public int getnBalance() {
         return nBalance;
     }
+
 }

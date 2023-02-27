@@ -27,6 +27,12 @@ public class AtmMain {
                     case 3:
                         atm.depositMoney();
                         break;
+                    case 4:
+                        atm.widrawMoney();
+                        break;
+                    case 5:
+                        atm.managerMode();
+                        break;
                     case 9:
                         System.out.println("안녕히 가세요 !");
                         running = false;
